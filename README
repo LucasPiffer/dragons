@@ -1,0 +1,6 @@
+login: teste@teste.com.br
+senha: password
+
+para rodar a aplicação
+acessar a raiz e rodar npm install && npm run start
+

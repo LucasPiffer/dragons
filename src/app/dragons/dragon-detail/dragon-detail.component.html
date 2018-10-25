@@ -1,0 +1,9 @@
+
+<div class="card" *ngIf="dragon">
+  <div class="card-header">
+    {{dragon.name}} | {{dragon.type}}
+  </div>
+  <div class="card-body">
+      <dragon-form [dragon]="dragon" [action]='"update"'></dragon-form>
+  </div>
+</div>

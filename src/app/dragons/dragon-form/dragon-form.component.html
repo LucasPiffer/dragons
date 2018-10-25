@@ -1,0 +1,46 @@
+<div [class]='feedbackClass' *ngIf="feedback">
+    {{feedback.msg}}
+</div>
+
+<form #frm="ngForm" (submit)='onSubmit(frm, $event)'>
+    <div class="form-group">
+      <label for="dragonName">Dragon Name <span class="small">**Required</span></label>
+      
+      <input name="dragonName" minlength="3" maxlength='20' type="text" [(ngModel)]="dragon.name" 
+        id="dragonName" #dragonName="ngModel" class="form-control" placeholder="Name" 
+        required>
+
+      <div *ngIf='(!dragonName.pristine || dragonName.touched) && !dragonName.valid' class="alert alert-danger">
+        <div *ngIf='dragonName.errors.required'>Name is required</div>
+        <div *ngIf='dragonName.errors.minlength'>Name's length should the minimum of {{dragonName.errors.minlength.requiredLength}} characters</div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="dragonType">Type of the dragon <span class="small">**Required</span></label>
+      <input #dragonType="ngModel" minlength="3" maxlength="20" [(ngModel)]="dragon.type" name="dragonType" type="text" id="dragonType" 
+        class="form-control" placeholder="Type of" required>
+
+        <div *ngIf='(!dragonType.pristine || dragonType.touched) && !dragonType.valid ' class="alert alert-danger">
+            <div *ngIf='dragonType.errors.required'>Type is required</div>
+            <div *ngIf='dragonType.errors.minlength'>
+                Type's length should the minimum of {{dragonType.errors.minlength.requiredLength}} characters
+            </div>
+        </div>  
+    </div>
+
+    <div class="form-group">
+        <label for="dragonHistories">The histories about this Dragon</label>
+        <div class="input-group">
+            <input [(ngModel)]='historyInput' name="historyInput" type="text" class="form-control"> 
+            <span class="input-group-btn">
+                 <button (click)="addHistory()" class="btn btn-primary" type="button">Add a History</button>
+            </span>
+        </div>
+        <ul class="list-group">
+          <li *ngFor="let history of histories" class="list-group-item">{{history}}</li>
+        </ul>
+    </div>
+    <button (click)='backClicked($event)' class="btn btn-info">Back</button>
+    <button type="submit" class="btn btn-success float-right" [disabled]="frm.invalid">Save</button>
+  </form>
